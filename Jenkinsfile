@@ -13,18 +13,18 @@ pipeline{
 
     stages{
         stage('checkout'){
-            step{
+            steps{
                 git url: "${GIT_REPO_URL}", credentialsId: 'github-credentials'
             }
 
         }
         stage('build docker image'){
-            step{
+            steps{
                 dockerImage = docker.build(${DOCKER_IMAGE})
             }
         }
         stage('push docker image'){
-            step{
+            steps{
                 docker.withRegistry('',"${DOCKERHUB_CREDENTIALS}"){
                     dockerImage.push('latest')
                 }
