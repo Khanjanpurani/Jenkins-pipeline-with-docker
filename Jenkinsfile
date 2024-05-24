@@ -6,7 +6,7 @@ pipeline{
     enviroment{
         DOCKERHUB_CREDENTIALS = 'dockerhub-credentials'
         DOCKER_IMAGE = 'khanjanpurani307/hello-world'
-        REGISTRY_CREDENTIALS == dockerhub
+        REGISTRY_CREDENTIALS = dockerhub
         GIT_REPO_URL = 'https://github.com/Khanjanpurani/Jenkins-pipeline-with-docker.git'
 
     }
