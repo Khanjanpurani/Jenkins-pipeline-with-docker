@@ -1,21 +1,23 @@
 pipeline {
     agent any
-
+    
     environment {
-        
-        GITHUB_CREDENTIALS_ID = 'github-credentials'  
-        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'  
-        DOCKER_IMAGE = 'Khanjanpurani/hello-world-app'  
+        GITHUB_CREDENTIALS_ID = 'github-credentials'
+        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
+        DOCKER_IMAGE = 'puranikhanjan307/hello-world-app'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                
-                git credentialsId: "${GITHUB_CREDENTIALS_ID}", url: 'https://github.com/Khanjanpurani/Jenkins-pipeline-with-docker'
+                script {
+                    
+                    git branch: 'main', credentialsId: "${GITHUB_CREDENTIALS_ID}", url: 'https://github.com/Khanjanpurani/Jenkins-pipeline-with-docker.git'
+                }
             }
         }
-
+        
+    
         stage('Build Docker Image') {
             steps {
                 script {
