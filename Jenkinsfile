@@ -4,26 +4,22 @@ pipeline {
     environment {
         GITHUB_CREDENTIALS_ID = 'github-credentials'
         DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
-        dockerImage =''
-        registry = 'puranikhanjan307/helloworld'
+        DOCKER_IMAGE = 'puranikhanjan307/hello-world-app'
     }
 
     stages {
         stage('Checkout') {
             steps {
                 script {
-                    
                     git branch: 'main', credentialsId: "${GITHUB_CREDENTIALS_ID}", url: 'https://github.com/Khanjanpurani/Jenkins-pipeline-with-docker.git'
                 }
             }
         }
         
-    
         stage('Build Docker Image') {
             steps {
                 script {
-                
-                    dockerImage = docker.build registry
+                    docker.build("${DOCKER_IMAGE}")
                 }
             }
         }
@@ -31,7 +27,6 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
                         docker.image("${DOCKER_IMAGE}").push('latest')
                     }
@@ -42,8 +37,7 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                  
-                    sh "docker run -d --name hello-world-container ${DOCKER_IMAGE}:latest"
+                    sh "docker run -d --name hello-world-container -p 8080:8080 ${DOCKER_IMAGE}:latest"
                 }
             }
         }
@@ -51,7 +45,6 @@ pipeline {
 
     post {
         always {
-
             cleanWs()
         }
     }
