@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 
-                git credentialsId: "${GITHUB_CREDENTIALS_ID}", url: 'https://github.com/Khanjanpurani/Jenkins-pipeline-with-docker'
+                git credentialsId: "${GITHUB_CREDENTIALS_ID}", url: 'https://github.com/Khanjanpurani/Jenkins-pipeline-with-docker.git'
             }
         }
 
