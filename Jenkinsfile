@@ -4,7 +4,8 @@ pipeline {
     environment {
         GITHUB_CREDENTIALS_ID = 'github-credentials'
         DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
-        DOCKER_IMAGE = 'puranikhanjan307/hello-world-app'
+        dockerImage =''
+        registry = 'puranikhanjan307/helloworld'
     }
 
     stages {
@@ -22,7 +23,7 @@ pipeline {
             steps {
                 script {
                 
-                    docker.build("${DOCKER_IMAGE}", "--log-level=debug")
+                    dockerImage = docker.build registry
                 }
             }
         }
